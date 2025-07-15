@@ -1,81 +1,148 @@
-import React from 'react';
+import React, { useState } from 'react';
 import '../components/AdminDashboard.css';
 
-function AdminDashboard({ username = "SHRI ADMIN" }) {
-  const rtiRequests = [
-    { id: 1, applicant: "Raj Mehta", status: "New", submittedOn: "2025-07-12" },
-    { id: 2, applicant: "Pooja Das", status: "Under Process", submittedOn: "2025-07-10" },
-    { id: 3, applicant: "Amit Roy", status: "Under Process", submittedOn: "2025-07-08" },
-  ];
+const navItems = [
+  "HOME",
+  "CREATE DEPARTMENT",
+  "CREATE NODAL OFFICER",
+  "CREATE SPIO",
+  "CREATE FAA",
+];
+
+const statCards = [
+  {
+    type: "dual",
+    icon: "📄",
+    stats: [
+      { label: "Total Request(s)", value: 2447 },
+      { label: "Disposed Off", value: 1500, className: "disposed" },
+    ],
+  },
+  {
+    type: "dual",
+    icon: "📄",
+    stats: [
+      { label: "Total Appeal(s)", value: 1000 },
+      { label: "Disposed Off", value: 456, className: "disposed" },
+    ],
+  },
+  {
+    type: "single",
+    icon: "📄",
+    label: "Departments Onboarded",
+    value: 15,
+  },
+  {
+    type: "single",
+    icon: "📄",
+    label: "Total Nodal Officer",
+    value: 15,
+  },
+  {
+    type: "single",
+    icon: "📄",
+    label: "Total SPIO",
+    value: 15,
+  },
+  {
+    type: "single",
+    icon: "📄",
+    label: "Total First Appellate Authority",
+    value: 15,
+  },
+];
+
+function AdminDashboard() {
+  const [activeTab, setActiveTab] = useState("HOME");
+
+  const handleNavClick = (label) => {
+    setActiveTab(label);
+    if (label !== "HOME") {
+      alert(`${label} functionality would be implemented here.`);
+    }
+  };
+
+  const handleCardClick = (label) => {
+    alert(`Detailed view for ${label} would be implemented here.`);
+  };
 
   return (
-    <div className="dashboard-wrapper">
+    <div className="admin-body">
       {/* Header */}
-      <header className="dashboard-header">
-        <div className="header-left">PUBLIC AUTHORITY: Tripura Public Service Commission</div>
-        <div className="header-center">
-          Welcome to Admin Module of RTI-MIS<br />
-          ROLE: ADMIN
+      <div className="header">
+        <div className="logo-section">
+          <div className="logo">RTI</div>
+          <div className="title-section">
+            <div className="main-title">Right to Information Online Portal</div>
+            <div className="subtitle">
+              An initiative of Administrative Reforms, Training, Pension and Public Grievances Department, Government of Tripura
+            </div>
+          </div>
         </div>
-        <div className="header-right">USER: {username}</div>
-      </header>
+        <button className="login-btn"><span className="login-icon"></span>LOGIN</button>
+      </div>
 
-      {/* Summary Cards */}
-      <section className="dashboard-summary">
-        <div className="summary-card">
-          <div className="icon">📩</div>
-          <h3>Pending for Disposal</h3>
-          <p className="value">4</p>
-        </div>
-        <div className="summary-card">
-          <div className="icon">📥</div>
-          <h3>RTI Requests</h3>
-          <p className="sub-value">New: <span>3</span></p>
-          <p className="sub-value">Under Process: <span>6</span></p>
-        </div>
-        <div className="summary-card">
-          <div className="icon">📨</div>
-          <h3>Appeals</h3>
-          <p className="sub-value">Raised: <span>6</span></p>
-          <p className="sub-value">Disposed: <span>7</span></p>
-        </div>
-      </section>
+      {/* Navigation */}
+      <div className="navigation">
+        {navItems.map((item) => (
+          <button
+            key={item}
+            className={`nav-item ${activeTab === item ? "active" : ""}`}
+            onClick={() => handleNavClick(item)}
+          >
+            {item}
+          </button>
+        ))}
+      </div>
 
-      {/* RTI Requests Table */}
-      <section className="dashboard-section">
-        <h2>Recent RTI Requests</h2>
-        <table className="data-table">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Applicant</th>
-              <th>Status</th>
-              <th>Submitted On</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rtiRequests.map((req) => (
-              <tr key={req.id}>
-                <td>{req.id}</td>
-                <td>{req.applicant}</td>
-                <td>{req.status}</td>
-                <td>{req.submittedOn}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </section>
+      {/* Admin Info */}
+      <div className="admin-info">
+        <div className="welcome-text">Welcome to Admin Module of RTI-MIS</div>
+        <div className="user-info">
+          <div className="user-detail"><strong>Public Authority:</strong> General Administration (AR)</div>
+          <div className="user-detail"><strong>Role:</strong> Administrator</div>
+          <div className="user-detail"><strong>User:</strong> Shri xxxxx xxxx, TSS, Gr-III</div>
+        </div>
+      </div>
 
-      {/* Placeholder Sections */}
-      <section className="dashboard-section">
-        <h2>Other Admin Modules</h2>
-        <ul>
-          <li>✔ Department List</li>
-          <li>✔ SPIO List</li>
-          <li>✔ FAA List</li>
-          <li>✔ Nodal Officer List</li>
-        </ul>
-      </section>
+      {/* Stat Cards */}
+      <div className="dashboard-content">
+        <div className="stats-grid">
+          {statCards.map((card, idx) => (
+            <div className="stat-card" key={idx} onClick={() => handleCardClick(card.label || card.stats[0].label)}>
+              <div className="stat-icon"><span className="document-icon"></span></div>
+              <div className="stat-content">
+                {card.type === "dual" ? (
+                  <div className="stat-values">
+                    {card.stats.map((stat, i) => (
+                      <div className="stat-item" key={i}>
+                        <div className="stat-label">{stat.label}</div>
+                        <div className={`stat-number ${stat.className || ""}`}>{stat.value}</div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="single-stat">
+                    <div className="stat-number">{card.value}</div>
+                    <div className="stat-label">{card.label}</div>
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Footer */}
+      <div className="footer">
+        <div className="footer-content">
+          Contents of this portal is provided by Administrative Reforms, Training, Pension and Public Grievances Department, Govt. of Tripura
+        </div>
+        <div>
+          Copyright ©️ 2025, All Rights Reserved.
+          Maintained by Tripura Information Commission | Designed & Developed by NIC Tripura
+        </div>
+      </div>
     </div>
   );
 }
