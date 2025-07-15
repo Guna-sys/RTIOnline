@@ -1,98 +1,137 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import '../components/AdminLogin.css';
 
 function AdminLogin() {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
   const [captcha, setCaptcha] = useState('');
-  const [inputCaptcha, setInputCaptcha] = useState('');
-  const [error, setError] = useState('');
+  const [formData, setFormData] = useState({
+    username: '',
+    password: '',
+    captchaInput: ''
+  });
 
-  // Generate new captcha
   const generateCaptcha = () => {
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
-    let newCaptcha = '';
+    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = '';
     for (let i = 0; i < 6; i++) {
-      newCaptcha += chars.charAt(Math.floor(Math.random() * chars.length));
+      result += chars.charAt(Math.floor(Math.random() * chars.length));
     }
-    setCaptcha(newCaptcha);
+    setCaptcha(result);
   };
 
   useEffect(() => {
-    generateCaptcha(); // generate once when page loads
+    generateCaptcha();
   }, []);
 
-  const handleLogin = () => {
-    if (!username || !password || !inputCaptcha) {
-      setError('Please fill in all fields.');
+  const handleChange = (e) => {
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.username || !formData.password || !formData.captchaInput) {
+      alert('All fields are required!');
       return;
     }
 
-    if (inputCaptcha !== captcha) {
-      setError('Incorrect captcha. Please try again.');
+    if (formData.captchaInput !== captcha) {
+      alert('Captcha incorrect! Please try again.');
       generateCaptcha();
-      setInputCaptcha('');
+      setFormData((prev) => ({ ...prev, captchaInput: '' }));
       return;
     }
 
-    // Simulated login action
-    setError('');
-    alert('Login successful (demo)');
+    alert('Login successful (demo).');
+    // Redirect or API call logic here
+  };
+
+  const handleForgotPassword = () => {
+    alert('Password reset functionality will be added here.');
   };
 
   return (
-    <div className="admin-login-wrapper">
-      <div className="admin-login-box">
-        <h2 className="login-title">Official Login - Admin Portal</h2>
-
-        <div className="input-group">
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            id="username"
-            placeholder="Enter username"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-
-        <div className="input-group">
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            id="password"
-            placeholder="Enter password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-
-        <div className="input-group captcha-group">
-          <label>Captcha</label>
-          <div className="captcha-box">
-            <span className="captcha-text">{captcha}</span>
-            <button type="button" onClick={generateCaptcha} className="refresh-btn">↻</button>
+    <div className="admin-body">
+      <header className="header">
+        <div className="logo-section">
+          <div className="logo">RTI</div>
+          <div className="title-section">
+            <div className="main-title">Right to Information Online Portal</div>
+            <div className="subtitle">
+              An initiative of Administrative Reforms, Training, Pension and Public Grievances Department, Government of Tripura
+            </div>
           </div>
-          <input
-            type="text"
-            placeholder="Enter captcha shown above"
-            value={inputCaptcha}
-            onChange={(e) => setInputCaptcha(e.target.value)}
-          />
         </div>
-
-        {error && <p className="error-message">{error}</p>}
-
-        <button className="login-btn" onClick={handleLogin}>
-          LOGIN
+        <button className="login-btn">
+          <span className="login-icon"></span> LOGIN
         </button>
+      </header>
 
-        <div className="forgot-section">
-          <p>
-            Forgot Password? <a href="#">Click here to reset</a>
-          </p>
+      <main className="main-content">
+        <div className="login-panel">
+          <h2 className="login-title">Official Login</h2>
+          <form onSubmit={handleSubmit}>
+            <div className="input-group">
+              <span className="input-icon user-icon"></span>
+              <input
+                type="text"
+                name="username"
+                className="input-field"
+                placeholder="Enter Username"
+                value={formData.username}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="input-group">
+              <span className="input-icon lock-icon"></span>
+              <input
+                type="password"
+                name="password"
+                className="input-field"
+                placeholder="Enter Password"
+                value={formData.password}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <div className="captcha-section">
+              <div className="captcha-container">
+                <div className="captcha-image">{captcha}</div>
+                <button type="button" className="refresh-btn" onClick={generateCaptcha}>Refresh</button>
+              </div>
+              <input
+                type="text"
+                name="captchaInput"
+                className="captcha-input"
+                placeholder="Enter Captcha Code"
+                value={formData.captchaInput}
+                onChange={handleChange}
+                required
+              />
+            </div>
+
+            <button type="submit" className="login-submit">LOGIN</button>
+
+            <div className="forgot-password">
+              <a href="#" onClick={handleForgotPassword}>
+                Forgot Password? Click Here to Reset
+              </a>
+            </div>
+          </form>
         </div>
-      </div>
+      </main>
+
+      <footer className="footer">
+        <div className="footer-content">
+          Contents of this portal is provided by Administrative Reforms, Training, Pension and Public Grievances Department, Govt. of Tripura
+        </div>
+        <div>
+          Copyright ©️ 2025, All Rights Reserved. This portal is Maintained by Tripura Information Commission
+          and Designed & Developed by National Informatics Centre, Tripura
+        </div>
+      </footer>
     </div>
   );
 }
