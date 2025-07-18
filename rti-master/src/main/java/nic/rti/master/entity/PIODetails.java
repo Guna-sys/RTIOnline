@@ -1,18 +1,24 @@
 package nic.rti.master.entity;
-import jakarta.persistence.*;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import jakarta.persistence.Column;
 import lombok.Data;
 
-@Data
 @Entity
-@Table(name="PIODetails",schema = "RTIMIS")
-public class PIODetails {
+@Table(name = "piodetails", schema = "rtimis")
+@Data
+public class PioDetails {
+
     @Id
-    @Column(name="pio_id")
-    private String pioId;
+    @Column(name = "pio_id")
+    private Integer pioId;
 
-    @Column(name="Name")
-    private String name;
+    @Column(name = "PIOCode")
+    private Integer pioCode;
 
-    @Column(name="ActiveIdle")
+    @Column(name = "ActiveIdle")
     private String activeIdle;
+
 }
