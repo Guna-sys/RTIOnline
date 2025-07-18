@@ -1,0 +1,265 @@
+/* Global Reset */
+.admin-body {
+  font-family: Arial, sans-serif;
+  background: #f5f7fa;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Header */
+.header {
+  background: white;
+  padding: 15px 20px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.logo {
+  width: 60px;
+  height: 60px;
+  background: #4a90e2;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.title-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.main-title {
+  color: #2c5aa0;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.subtitle {
+  color: #666;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.login-btn {
+  background: #4a90e2;
+  color: white;
+  padding: 8px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.login-btn:hover {
+  background: #357abd;
+}
+
+/* Navigation */
+.navigation {
+  background: #4a90e2;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #357abd;
+}
+
+.nav-item {
+  background: transparent;
+  color: white;
+  padding: 15px 20px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: bold;
+  border: none;
+  border-right: 1px solid #357abd;
+  transition: background 0.3s;
+}
+
+.nav-item:hover {
+  background: #357abd;
+}
+
+.nav-item.active {
+  background: #2c5aa0;
+}
+
+/* Admin Info */
+.admin-info {
+  background: white;
+  padding: 15px 20px;
+  border-bottom: 1px solid #e0e0e0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.welcome-text {
+  color: #8b4513;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.user-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  font-size: 14px;
+  color: #333;
+}
+
+.user-detail strong {
+  color: #8b4513;
+}
+
+/* Dashboard Content */
+.dashboard-content {
+  flex: 1;
+  padding: 30px 20px;
+  background: #f5f7fa;
+}
+
+/* Stats Grid */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 8px;
+  padding: 25px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border: 2px solid #e0e0e0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
+
+.stat-icon {
+  width: 60px;
+  height: 60px;
+  background: linear-gradient(135deg, #ff8c42, #ff6b35);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+  color: white;
+  flex-shrink: 0;
+}
+
+.stat-content {
+  flex: 1;
+}
+
+/* Dual Value Stats */
+.stat-values {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.stat-number {
+  font-size: 24px;
+  font-weight: bold;
+  color: #8b4513;
+}
+
+.stat-number.disposed {
+  color: #dc3545;
+}
+
+/* Single Value Stat */
+.single-stat {
+  text-align: center;
+}
+
+.single-stat .stat-number {
+  font-size: 28px;
+  margin-bottom: 5px;
+}
+
+.single-stat .stat-label {
+  font-size: 14px;
+  color: #8b4513;
+  font-weight: bold;
+}
+
+/* Footer */
+.footer {
+  background: #4a90e2;
+  color: white;
+  text-align: center;
+  padding: 20px;
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.footer-content {
+  margin-bottom: 10px;
+}
+
+/* Pseudo Icons */
+.login-icon::before {
+  content: "🔐";
+}
+
+.document-icon::before {
+  content: "📄";
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .stat-values {
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .user-info {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .navigation {
+    flex-wrap: wrap;
+  }
+}
